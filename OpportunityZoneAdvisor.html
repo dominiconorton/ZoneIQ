@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Zone Advisor</title>
+    <link rel="stylesheet" href="OpportunityZoneAdvisor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-column">
+            <h1>Opportunity Zone Advisor</h1>
+            <form id="opportunityZoneForm">
+                <div>
+                    <label for="address">
+                        Address
+                        <i class="fas fa-info-circle info-icon" data-tooltip="Enter the full address of the property you're considering for your Opportunity Zone investment."></i>
+                    </label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div>
+                    <label for="squareFootage">
+                        Square Footage
+                        <i class="fas fa-info-circle info-icon" data-tooltip="The total area of the property in square feet. This helps determine the scale of your project."></i>
+                    </label>
+                    <input type="number" id="squareFootage" name="squareFootage" required min="0">
+                </div>
+                <div>
+                    <label for="budget">
+                        Budget
+                        <i class="fas fa-info-circle info-icon" data-tooltip="The amount of money you're planning to invest in this Opportunity Zone project."></i>
+                    </label>
+                    <input type="number" id="budget" name="budget" required min="0">
+                </div>
+                <div>
+                    <label for="businessType">
+                        Business Type
+                        <i class="fas fa-info-circle info-icon" data-tooltip="The type of business or investment you're planning to establish in the Opportunity Zone."></i>
+                    </label>
+                    <select id="businessType" name="businessType" required>
+                        <option value="">Select Business Type</option>
+                        <option value="high-cash-flow">High Cash Flow Businesses</option>
+                        <option value="recurring-revenue">Recurring Revenue Businesses</option>
+                        <option value="seasonal-cash-flow">Seasonal Cash Flow Businesses</option>
+                        <option value="low-cash-flow-high-margin">Low Cash Flow, High Margin Businesses</option>
+                        <option value="project-based">Project-Based Cash Flow Businesses</option>
+                        <option value="capital-intensive">Capital-Intensive, Long-Term Cash Flow Businesses</option>
+                        <option value="inventory-heavy">Inventory-Heavy, Low Margin Businesses</option>
+                        <option value="payment-delays">Cash Flow Businesses with Significant Payment Delays</option>
+                        <option value="franchise">Franchise Businesses</option>
+                        <option value="non-profit">Non-Profit Organizations</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cashFlowType">
+                        Cash Flow Type
+                        <i class="fas fa-info-circle info-icon" data-tooltip="How you expect to receive payments in your business. This can significantly impact your day-to-day operations and financial planning."></i>
+                    </label>
+                    <select id="cashFlowType" name="cashFlowType" required>
+                        <option value="">Select Cash Flow Type</option>
+                        <option value="net-30">Net-30 (Payment within 30 days)</option>
+                        <option value="net-60">Net-60 (Payment within 60 days)</option>
+                        <option value="net-90">Net-90 (Payment within 90 days)</option>
+                        <option value="project-completion">Payment upon Project Completion</option>
+                        <option value="milestone-completion">Payment upon Milestone Completion</option>
+                        <option value="product-delivery">Payment After Product Delivery</option>
+                        <option value="insurance-processing">Delayed Payment due to Insurance Processing</option>
+                        <option value="government-contracting">Delayed Payment due to Government Contracting</option>
+                        <option value="client-approvals">Delayed Payment due to Client Approvals</option>
+                        <option value="legal-disputes">Payment Delay due to Legal/Contractual Disputes</option>
+                        <option value="long-term">Long-Term Payment Agreement (e.g., 120+ days)</option>
+                        <option value="installments">Payment in Installments</option>
+                        <option value="no-delays">No Significant Payment Delays</option>
+                    </select>
+                </div>
+                <button type="submit" id="submitButton">Get Opportunity Zone Ideas</button>
+            </form>
+            <div id="errorMessage" class="error" style="display: none;"></div>
+            <div id="ideasContainer" class="ideas"></div>
+        </div>
+        <div class="right-column">
+            <div id="actionableStepsContainer" class="info-section">
+                <h2>Actionable Steps</h2>
+                <div id="actionableStepsContent">
+                    <p class="placeholder-text">Select an opportunity zone idea to view actionable steps.</p>
+                </div>
+            </div>
+            <div id="localResourcesContainer" class="info-section">
+                <h2>Local Resources and Support</h2>
+                <div id="localResourcesContent">
+                    <p class="placeholder-text">Select an opportunity zone idea to view local resources and support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="OpportunityZoneAdvisor.js"></script>
+</body>
+</html>
