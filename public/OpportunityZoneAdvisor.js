@@ -14,28 +14,116 @@ document.addEventListener('DOMContentLoaded', function() {
 
     form.addEventListener('submit', handleSubmit);
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
         hideError();
 
-        const formData = {
-            address: form.address.value,
-            squareFootage: Number(form.squareFootage.value),
-            budget: Number(form.budget.value),
-            businessType: form.businessType.value,
-            cashFlowType: form.cashFlowType.value
-        };
+        // Static data for demonstration
+        const staticIdeas = [
+            {
+                id: 1,
+                title: "Co-working Space",
+                description: "Create a modern co-working space offering innovative workspaces and startup incubation services.",
+                potentialROI: "15-20% annually",
+                actionableSteps: [
+                    "Research local demand for co-working spaces in Opportunity Zones",
+                    "Identify a suitable property for renovation or new construction",
+                    "Develop a business plan, including financial projections",
+                    "Secure funding through Opportunity Zone investors",
+                    "Design the space layout and amenities",
+                    "Implement marketing strategies to attract tenants",
+                    "Establish partnerships with local businesses and startups",
+                    "Plan for ongoing management and community building activities"
+                ],
+                localResources: [
+                    {
+                        name: "Local Economic Development Office",
+                        link: "#",
+                        description: "Offers guidance on zoning and business permits"
+                    },
+                    {
+                        name: "Chamber of Commerce",
+                        link: "#",
+                        description: "Provides networking and local business support"
+                    },
+                    {
+                        name: "Small Business Development Center",
+                        link: "#",
+                        description: "Offers free business consulting and low-cost training"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Mixed-use Development",
+                description: "Develop a mixed-use property with retail on the ground floor and apartments above.",
+                potentialROI: "12-18% annually",
+                actionableSteps: [
+                    "Conduct market research to determine optimal mix of retail and residential",
+                    "Identify potential sites within the Opportunity Zone",
+                    "Create architectural plans and obtain necessary permits",
+                    "Secure financing, including Opportunity Zone funds",
+                    "Begin construction and establish a timeline",
+                    "Develop a marketing strategy for both retail and residential spaces",
+                    "Create a property management plan",
+                    "Plan for community engagement and local economic impact"
+                ],
+                localResources: [
+                    {
+                        name: "City Planning Department",
+                        link: "#",
+                        description: "Provides information on zoning and development regulations"
+                    },
+                    {
+                        name: "Local Real Estate Association",
+                        link: "#",
+                        description: "Offers market insights and networking opportunities"
+                    },
+                    {
+                        name: "Community Development Corporation",
+                        link: "#",
+                        description: "Supports neighborhood revitalization efforts"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Sustainable Agriculture Facility",
+                description: "Establish an indoor vertical farming facility to provide fresh produce to local restaurants and grocers.",
+                potentialROI: "10-15% annually",
+                actionableSteps: [
+                    "Research vertical farming technologies and best practices",
+                    "Identify a suitable industrial or warehouse space in the Opportunity Zone",
+                    "Develop a business plan and financial projections",
+                    "Secure Opportunity Zone funding and additional investments",
+                    "Design the facility layout and select growing systems",
+                    "Obtain necessary permits and certifications",
+                    "Establish relationships with local restaurants and grocers",
+                    "Implement a marketing strategy emphasizing sustainability and local production"
+                ],
+                localResources: [
+                    {
+                        name: "Department of Agriculture Extension Office",
+                        link: "#",
+                        description: "Provides agricultural expertise and resources"
+                    },
+                    {
+                        name: "Local Food Policy Council",
+                        link: "#",
+                        description: "Offers insights on local food systems and policies"
+                    },
+                    {
+                        name: "Sustainable Agriculture Association",
+                        link: "#",
+                        description: "Provides networking and educational resources"
+                    }
+                ]
+            }
+        ];
 
-        try {
-            const ideas = await fetchOpportunityZoneIdeas(formData);
-            displayIdeas(ideas);
-        } catch (error) {
-            console.error('Error fetching opportunity zone ideas:', error);
-            showError('An error occurred while fetching ideas. Please try again.');
-        } finally {
-            setLoading(false);
-        }
+        displayIdeas(staticIdeas);
+        setLoading(false);
     }
 
     function setLoading(isLoading) {
@@ -83,78 +171,30 @@ document.addEventListener('DOMContentLoaded', function() {
         ideaElement.classList.add('selected');
         selectedIdea = ideaElement;
 
-        showActionableSteps(idea);
-        showLocalResources(idea);
+        showActionableSteps(idea.actionableSteps);
+        showLocalResources(idea.localResources);
     }
 
-    function showActionableSteps(idea) {
+    function showActionableSteps(steps) {
         actionableStepsContainer.style.display = 'block';
         actionableStepsContent.innerHTML = `
-            <h3>${idea.title} - Actionable Steps</h3>
+            <h3>Actionable Steps</h3>
             <ol>
-                <li>Research local zoning laws and regulations for ${idea.title.toLowerCase()}.</li>
-                <li>Conduct a market analysis to validate demand for this type of business in the area.</li>
-                <li>Develop a detailed business plan, including financial projections.</li>
-                <li>Identify potential investors or funding sources familiar with Opportunity Zone investments.</li>
-                <li>Consult with a tax professional to understand the tax benefits and requirements of Opportunity Zone investments.</li>
-                <li>Begin the process of acquiring or leasing a suitable property within the Opportunity Zone.</li>
-                <li>Engage with local community leaders and organizations to build support for your project.</li>
-                <li>Start the permitting and licensing process for your business.</li>
-                <li>Develop a timeline for project implementation and set milestones.</li>
-                <li>Create a marketing strategy to attract customers or tenants to your new venture.</li>
+                ${steps.map(step => `<li>${step}</li>`).join('')}
             </ol>
         `;
     }
 
-    function showLocalResources(idea) {
+    function showLocalResources(resources) {
         localResourcesContainer.style.display = 'block';
         localResourcesContent.innerHTML = `
-            <h3>${idea.title} - Local Resources and Support</h3>
+            <h3>Local Resources and Support</h3>
             <ul>
-                <li>Local Economic Development Office: Contact for guidance on local business incentives and regulations.</li>
-                <li>Chamber of Commerce: Join to network with local business leaders and access resources.</li>
-                <li>Small Business Development Center: Seek free consulting and workshops for business planning.</li>
-                <li>Local Zoning Office: Consult for specific zoning requirements related to ${idea.title.toLowerCase()}.</li>
-                <li>Community Banks: Explore local financing options familiar with Opportunity Zone investments.</li>
-                <li>Industry Associations: Join relevant associations for ${idea.title.toLowerCase()} to access industry-specific resources.</li>
-                <li>Local Universities: Partner for research, talent acquisition, or specialized knowledge.</li>
-                <li>Mentorship Programs: Connect with experienced entrepreneurs in similar fields.</li>
-                <li>Networking Events: Attend local business mixers to build connections and partnerships.</li>
-                <li>Online Communities: Join local business forums or social media groups for peer support and advice.</li>
+                ${resources.map(resource => `<li><a href="${resource.link}" target="_blank">${resource.name}</a>: ${resource.description}</li>`).join('')}
             </ul>
         `;
     }
 
-    async function fetchOpportunityZoneIdeas(formData) {
-        // Simulating an API call with a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Mock response data
-        const mockIdeas = [
-            {
-                id: '1',
-                title: 'Co-working Space',
-                description: 'Create a modern co-working space catering to remote workers and small businesses in the area.',
-                potentialROI: '15-20% annually',
-            },
-            {
-                id: '2',
-                title: 'Mixed-Use Development',
-                description: 'Develop a mixed-use property with retail on the ground floor and apartments above.',
-                potentialROI: '12-18% annually',
-            },
-            {
-                id: '3',
-                title: 'Sustainable Agriculture Facility',
-                description: 'Establish an indoor vertical farming facility to provide fresh produce to local restaurants and markets.',
-                potentialROI: '10-15% annually',
-            },
-        ];
-
-        return mockIdeas;
-    }
-
-    // Add this new function for tooltip positioning
     function positionTooltip(icon) {
         const tooltip = icon;
         const iconRect = icon.getBoundingClientRect();
